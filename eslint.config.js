@@ -43,12 +43,32 @@ export default [
       },
     },
   },
-  // Override ESLint settings for `drizzle.config.ts`
+  // Override ESLint settings for test files
+  {
+    files: ['__tests__/**/*.ts'],
+    languageOptions: {
+      globals: {
+        jest: 'readonly',
+        describe: 'readonly',
+        test: 'readonly',
+        expect: 'readonly',
+        beforeEach: 'readonly',
+        afterEach: 'readonly',
+      },
+    },
+    env: {
+      jest: true, // ✅ Enables Jest globals
+    },
+    rules: {
+      'no-undef': 'off', // ✅ Disables undefined variable errors in tests
+    },
+  },
+  // Override ESLint settings for config files
   {
     files: ['drizzle.config.ts', 'jest.config.ts', 'tsup.config.ts'],
     languageOptions: {
       parserOptions: {
-        project: null, // ✅ Disables type-checking for this file to avoid ESLint errors
+        project: null, // ✅ Disables type-checking for these files
       },
     },
   },

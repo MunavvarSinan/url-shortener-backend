@@ -3,7 +3,7 @@ import type { IUserRepository } from '@/domain/repositories/IUserRepository';
 import type { NewUser } from '@/infrastructure/database/schema';
 import { config } from '@/shared/config';
 import { AppError } from '@/shared/errors/app-error';
-import { hash } from 'argon2';
+import { hash, verify } from 'argon2';
 import jwt from 'jsonwebtoken';
 
 export class AuthService {
@@ -50,7 +50,7 @@ export class AuthService {
       throw new AppError('User not found', 404, 'user_not_found');
     }
 
-    const isPasswordValid = (await hash(data.password)) === user.password;
+    const isPasswordValid = await verify(user.password, data.password);
     if (!isPasswordValid) {
       throw new AppError('Invalid credentials', 401, 'invalid_credentials');
     }
