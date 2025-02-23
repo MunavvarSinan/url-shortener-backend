@@ -7,7 +7,8 @@ WORKDIR /usr/src/app
 # Install necessary dependencies
 RUN apk add --no-cache \
     build-base \
-    postgresql-client
+    postgresql-client \
+    libstdc++6
 
 # Copy package files first for better layer caching
 COPY package.json bun.lockb ./
