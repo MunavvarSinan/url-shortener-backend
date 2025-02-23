@@ -16,7 +16,9 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "docker:dev": "docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build",
-    "docker:psql": "docker exec -it backend-db-1 psql -U postgres -d postgres"
+    "docker:psql": "docker exec -it backend-db-1 psql -U postgres -d postgres",
+    "docker:db:generate": "docker exec -it backend-api-1 bun db:generate",
+    "docker:db:migrate": "docker exec -it backend-api-1 bun db:migrate"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^19.7.1",

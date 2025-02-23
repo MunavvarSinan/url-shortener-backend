@@ -24,6 +24,7 @@ export async function createServer(): Promise<Application> {
     rateLimit({
       windowMs: config.rateLimit.windowMs,
       max: config.rateLimit.max,
+      message: 'Too many requests, please try again later.', // Custom message
     }),
   );
 

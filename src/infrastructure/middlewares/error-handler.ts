@@ -1,6 +1,5 @@
 import type { Request, Response, NextFunction } from 'express';
 import { ZodError } from 'zod';
-
 import { AppError } from '@/shared/errors/app-error';
 import { logger } from '@/infrastructure/logger';
 
@@ -27,6 +26,9 @@ export function errorHandler(err: Error, _req: Request, res: Response, _next: Ne
       path: issue.path.join('.'),
       message: issue.message,
     }));
+  } else {
+    // Log the stack trace for other errors
+    logger.error(err.stack);
   }
 
   // Log the error

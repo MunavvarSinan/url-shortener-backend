@@ -1,49 +1,62 @@
+// import { test, expect, beforeAll, afterAll, describe } from 'bun:test';
 import { MockUrlRepository } from '../../../../__mocks__/mock-url.repo';
 import type { NewUrl } from '@/infrastructure/database/schema';
 
 describe('UrlRepository (Mocked)', () => {
     let urlRepository: MockUrlRepository;
 
-    beforeEach(() => {
+    beforeAll(() => {
         urlRepository = new MockUrlRepository();
         urlRepository.clearMockDb();
     });
 
-    test('should create a new URL', async () => {
-        const newUrl: NewUrl = {
-            url: 'https://example.com',
-            short_url: 'exmpl',
-            user_id: crypto.randomUUID(),
-        };
-        const result = await urlRepository.createUrl(newUrl);
-
-        expect(result).toMatchObject(newUrl);
-        expect(result.id).toBeDefined();
+    afterAll(() => {
+        urlRepository.clearMockDb();
     });
 
-    test('should retrieve all URLs', async () => {
-        await urlRepository.createUrl({ url: 'https://example.com/1', short_url: 'exmpl1', user_id: crypto.randomUUID() });
-        await urlRepository.createUrl({ url: 'https://example.com/2', short_url: 'exmpl2', user_id: crypto.randomUUID() });
+    describe('createUrl', () => {
+        test('should create a new URL', async () => {
+            const newUrl: NewUrl = {
+                url: 'https://example.com',
+                short_code: 'exmpl',
+                user_id: crypto.randomUUID(),
+            };
+            const result = await urlRepository.createUrl(newUrl);
 
-        const urls = await urlRepository.getAllUrls();
-        expect(urls.length).toBe(2);
+            expect(result).toMatchObject(newUrl);
+            expect(result.id).toBeDefined();
+        });
     });
 
-    test('should retrieve a URL by short_url', async () => {
-        const shortUrl = 'test123';
-        await urlRepository.createUrl({ url: 'https://example.com', short_url: shortUrl, user_id: crypto.randomUUID() });
+    describe('getAllUrls', () => {
+        test('should retrieve all URLs for a user', async () => {
+            const userId = crypto.randomUUID();
+            await urlRepository.createUrl({ url: 'https://example.com/1', short_code: 'exmpl1', user_id: userId });
+            await urlRepository.createUrl({ url: 'https://example.com/2', short_code: 'exmpl2', user_id: userId });
 
-        const result = await urlRepository.getUrlByShortUrl(shortUrl);
-        expect(result).not.toBeNull();
-        expect(result?.short_url).toBe(shortUrl);
+            const urls = await urlRepository.getAllUrls(userId);
+            expect(urls.length).toBe(2);
+        });
     });
 
-    test('should delete a URL', async () => {
-        const createdUrl = await urlRepository.createUrl({ url: 'https://example.com', short_url: 'exmpl', user_id: crypto.randomUUID() });
+    describe('getUrlByShortUrl', () => {
+        test('should retrieve a URL by short_code', async () => {
+            const shortUrl = 'test123';
+            await urlRepository.createUrl({ url: 'https://example.com', short_code: shortUrl, user_id: crypto.randomUUID() });
 
-        await urlRepository.deleteUrl(createdUrl.id);
-        const urls = await urlRepository.getAllUrls();
+            const result = await urlRepository.getUrlByShortUrl(shortUrl);
+            expect(result).not.toBeNull();
+            expect(result?.short_code).toBe(shortUrl);
+        });
+    });
 
-        expect(urls.length).toBe(0);
+    describe('deleteUrl', () => {
+        test('should delete a URL', async () => {
+            const createdUrl = await urlRepository.createUrl({ url: 'https://example.com', short_code: 'exmpl', user_id: crypto.randomUUID() });
+
+            await urlRepository.deleteUrl(createdUrl.id);
+            const urls = await urlRepository.getAllUrls(createdUrl.user_id);
+            expect(urls.length).toBe(0);
+        });
     });
 });

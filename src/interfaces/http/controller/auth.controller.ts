@@ -25,12 +25,11 @@ export class AuthController {
         },
       });
     } catch (error) {
-      logger.error(error, 'User signup failed');
       next(error);
     }
   };
 
-  login = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  signin = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       authValidation.login.body.parse(req.body);
 

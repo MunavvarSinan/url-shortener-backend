@@ -2,6 +2,7 @@ import eslint from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
 import tsparser from '@typescript-eslint/parser';
 import eslintConfigPrettier from 'eslint-config-prettier';
+import __dirname from 'path';
 
 export default [
   eslint.configs.recommended,
@@ -13,6 +14,7 @@ export default [
         ecmaVersion: 'latest',
         sourceType: 'module',
         project: './tsconfig.json',
+        tsconfigRootDir: __dirname, // Ensure this points to the root directory
       },
       globals: {
         process: 'readonly',
@@ -57,10 +59,10 @@ export default [
       },
     },
     env: {
-      jest: true, // ✅ Enables Jest globals
+      jest: true, // Enables Jest globals
     },
     rules: {
-      'no-undef': 'off', // ✅ Disables undefined variable errors in tests
+      'no-undef': 'off', // Disables undefined variable errors in tests
     },
   },
   // Override ESLint settings for config files
@@ -68,7 +70,7 @@ export default [
     files: ['drizzle.config.ts', 'jest.config.ts', 'tsup.config.ts'],
     languageOptions: {
       parserOptions: {
-        project: null, // ✅ Disables type-checking for these files
+        project: null, // Disables type-checking for these files
       },
     },
   },

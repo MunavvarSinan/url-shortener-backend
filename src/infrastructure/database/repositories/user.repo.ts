@@ -1,7 +1,7 @@
 import type { IUserRepository } from '@/domain/repositories/IUserRepository';
-import { users, type NewUser, type User } from '../schema';
-import { db } from '..';
 import { eq } from 'drizzle-orm';
+import { db } from '..';
+import { users, type NewUser, type User } from '../schema';
 
 export class UserRepository implements IUserRepository {
   async create(data: NewUser): Promise<User> {

@@ -8,6 +8,62 @@
       "when": 1740227531419,
       "tag": "0000_tense_diamondback",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1740243946275,
+      "tag": "0001_simple_matthew_murdock",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1740244009652,
+      "tag": "0002_cheerful_masked_marvel",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1740245289881,
+      "tag": "0003_known_the_initiative",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1740245622526,
+      "tag": "0004_youthful_maelstrom",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1740245841168,
+      "tag": "0005_concerned_the_executioner",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1740307866541,
+      "tag": "0006_stiff_mentallo",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1740308007060,
+      "tag": "0007_friendly_randall_flagg",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1740308068550,
+      "tag": "0008_bored_miss_america",
+      "breakpoints": true
     }
   ]
 }

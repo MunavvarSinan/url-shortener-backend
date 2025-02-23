@@ -28,7 +28,6 @@ export async function authenticate(
       id: string;
       email: string;
     };
-
     const user = await userRepository.getUserById(decoded.id);
     if (!user) {
       throw new AppError('Invalid token - user does not exist', 401);

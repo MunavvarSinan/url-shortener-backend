@@ -3,8 +3,9 @@ export class Url {
   constructor(
     public readonly id: string,
     public readonly url: string,
-    public readonly shortUrl: string,
-    public readonly userId: string,
+    public readonly short_code: string,
+    public readonly user_id: string,
+    public readonly visitors: number,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
   ) {

@@ -9,5 +9,6 @@ const authService = new AuthService(userRepository);
 const authController = new AuthController(authService);
 
 router.post('/sign-up', authController.signup);
+router.post('/sign-in', authController.signin);
 
 export default router;
